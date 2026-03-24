@@ -6,7 +6,6 @@ import requests
 import os
 import sys
 
-# Allow imports from parent folder (preprocessing, train_model, etc.)
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from preprocessing import load_data, preprocess
@@ -14,14 +13,11 @@ from train_model import prepare_prophet_df, train, save_model
 from predict import load_model, predict_aqi
 from aqi_alerts import get_category, get_alert
 
-# ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="AirAware — Dashboard",
     page_icon="🌬️",
     layout="wide",
 )
-
-# ── Shared CSS ─────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
@@ -143,7 +139,6 @@ html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Constants ──────────────────────────────────────────────────────────────────
 API_TOKEN = "32c53cfc61cde08743a85391301436793640a986"
 MODEL_PATH = "model.pkl"
 
@@ -196,7 +191,6 @@ def fetch_aqi_full(city):
         return None, str(e)
 
 
-# ── Top nav ────────────────────────────────────────────────────────────────────
 nav_l, nav_r = st.columns([3, 1])
 with nav_l:
     st.markdown("""
@@ -211,7 +205,7 @@ with nav_r:
     if st.button("← Back to Home", use_container_width=True):
         st.switch_page("home.py")
 
-# ── City input ─────────────────────────────────────────────────────────────────
+
 ci1, ci2 = st.columns([3, 1], gap="small")
 with ci1:
     CITY = st.text_input("", value="hyderabad", placeholder="Enter city name…", label_visibility="collapsed")
@@ -222,9 +216,7 @@ if not CITY:
     st.info("Enter a city name above to begin.")
     st.stop()
 
-# ══════════════════════════════════════════════════════════════════════════════
-# SECTION 1 — LIVE AQI
-# ══════════════════════════════════════════════════════════════════════════════
+
 st.markdown('<hr class="soft-divider">', unsafe_allow_html=True)
 st.markdown("""
 <div class="sec-label">Section 01</div>
@@ -305,9 +297,7 @@ else:
     """, unsafe_allow_html=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# SECTION 2 — HISTORICAL DATA
-# ══════════════════════════════════════════════════════════════════════════════
+
 st.markdown('<hr class="soft-divider">', unsafe_allow_html=True)
 st.markdown("""
 <div class="sec-label">Section 02</div>
@@ -318,7 +308,7 @@ st.markdown("""
 df = load_data()
 df = preprocess(df)
 
-# Build styled HTML table
+
 table_rows = ""
 for _, row in df[["Date", "AQI"]].tail(15).iterrows():
     aqi_v   = int(row["AQI"])
@@ -342,9 +332,6 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# SECTION 3 — MODEL TRAINING (silent)
-# ══════════════════════════════════════════════════════════════════════════════
 if not os.path.exists(MODEL_PATH):
     with st.spinner("Training prediction model on historical data…"):
         prophet_df = prepare_prophet_df(df)
@@ -355,9 +342,8 @@ else:
     model = load_model(MODEL_PATH)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# SECTION 4 — 7-DAY FORECAST
-# ══════════════════════════════════════════════════════════════════════════════
+
+
 st.markdown('<hr class="soft-divider">', unsafe_allow_html=True)
 st.markdown("""
 <div class="sec-label">Section 03</div>
@@ -407,7 +393,6 @@ plt.tight_layout()
 
 st.pyplot(fig)
 
-# ── Forecast table ──
 table_rows2 = ""
 for _, row in predictions.iterrows():
     aqi_v   = int(row["Predicted_AQI"])
@@ -433,9 +418,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# SECTION 5 — TOMORROW'S ALERT
-# ══════════════════════════════════════════════════════════════════════════════
+
 st.markdown('<hr class="soft-divider">', unsafe_allow_html=True)
 st.markdown("""
 <div class="sec-label">Section 04</div>
@@ -474,9 +457,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# SECTION 6 — LIVE vs PREDICTED COMPARISON
-# ══════════════════════════════════════════════════════════════════════════════
+
 if live_aqi:
     st.markdown('<hr class="soft-divider">', unsafe_allow_html=True)
     st.markdown("""
@@ -525,7 +506,7 @@ if live_aqi:
     </div>
     """, unsafe_allow_html=True)
 
-# ── Footer ─────────────────────────────────────────────────────────────────────
+
 st.markdown('<hr class="soft-divider">', unsafe_allow_html=True)
 st.markdown("""
 <p style="text-align:center;font-size:11px;color:#ccc;margin-top:1rem;">

@@ -1,14 +1,13 @@
 import streamlit as st
 import requests
 
-# ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
     page_title="AirAware Smart",
     page_icon="🌬️",
     layout="centered",
 )
 
-# ── CSS ────────────────────────────────────────────────────────────────────────
+
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
@@ -113,7 +112,6 @@ html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Constants ──────────────────────────────────────────────────────────────────
 API_TOKEN = "32c53cfc61cde08743a85391301436793640a986"
 
 LEVELS = [
@@ -162,7 +160,6 @@ def fetch_aqi(city):
         return None, str(e)
 
 
-# ── Hero ───────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div style="text-align:center; padding:0.5rem 0 1rem;">
   <div class="logo-circle">🌬</div>
@@ -171,19 +168,18 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── City input + Check button ──────────────────────────────────────────────────
+
 c1, c2 = st.columns([3, 1], gap="small")
 with c1:
     city = st.text_input("", value="hyderabad", placeholder="Enter city…", label_visibility="collapsed")
 with c2:
     check = st.button("Check air", use_container_width=True, type="primary")
 
-# ── Open Dashboard button (uses st.switch_page for Streamlit multipage) ────────
 st.markdown("<br>", unsafe_allow_html=True)
 if st.button("➜  Open Full Dashboard", use_container_width=True):
     st.switch_page("pages/dashboard.py")
 
-# ── Fetch & Render AQI card ────────────────────────────────────────────────────
+
 data, error = (None, None)
 if city:
     data, error = fetch_aqi(city)
@@ -246,10 +242,10 @@ elif data:
     </div>
     """, unsafe_allow_html=True)
 
-# ── Divider ────────────────────────────────────────────────────────────────────
+
 st.markdown('<hr class="soft-divider">', unsafe_allow_html=True)
 
-# ── Feature cards ──────────────────────────────────────────────────────────────
+
 st.markdown("""
 <div class="feat-grid">
   <div class="feat-card">
@@ -270,7 +266,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Footer ─────────────────────────────────────────────────────────────────────
+
 st.markdown("""
 <p style="text-align:center;font-size:11px;color:#ccc;margin-top:2.5rem;">
   AirAware Smart — Mini Project &nbsp;·&nbsp; WAQI API &nbsp;·&nbsp; Prophet &nbsp;·&nbsp; Streamlit

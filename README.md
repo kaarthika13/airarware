@@ -56,7 +56,6 @@ The system is designed to support **health awareness, pollution monitoring, and 
 ## 📁 Project Structure
 
 
-```bash
 AirAware/
 │
 ├── data/                 # Dataset files  
@@ -70,7 +69,6 @@ AirAware/
 ├── requirements.txt  
 ├── Procfile              # Deployment
 
-bash'''
 
 ## ⚙️ Installation
 

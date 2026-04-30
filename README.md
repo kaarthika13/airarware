@@ -55,19 +55,20 @@ The system is designed to support **health awareness, pollution monitoring, and 
 
 ## 📁 Project Structure
 
+
+```bash
 AirAware/
 │
-├── data/                 # Dataset files
-├── pages/                # Streamlit multi-page UI
-├── home.py               # Main UI application
-├── train_model.py        # Model training script
-├── predict.py            # Prediction logic
-├── preprocessing.py      # Data cleaning & processing
-├── aqi_alerts.py         # AQI alert system
-├── model.pkl             # Trained ML model
-├── requirements.txt
-├── Procfile              # Deployment configuration
-└── README.md
+├── data/                 # Dataset files  
+├── pages/                # Streamlit multi-page UI  
+├── home.py               # Main UI application  
+├── train_model.py        # Model training script  
+├── predict.py            # Prediction logic  
+├── preprocessing.py      # Data cleaning & processing  
+├── aqi_alerts.py         # AQI alert system  
+├── model.pkl             # Trained ML model  
+├── requirements.txt  
+├── Procfile              # Deployment
 
 ---
 

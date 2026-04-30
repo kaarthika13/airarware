@@ -1,8 +1,8 @@
-# 🌍 AirAware – AI-Based Air Quality Monitoring & Prediction System
+# 🌍 AirAware –  Air Quality Monitoring & Prediction System
 
 ## 🚀 Overview
 
-**AirAware** is an AI-powered web application that monitors, analyzes, and predicts air quality using machine learning.
+**AirAware** is an web application that monitors, analyzes, and predicts air quality using machine learning.
 It provides real-time insights into pollution levels and helps users understand environmental conditions through data-driven predictions.
 
 The system is designed to support **health awareness, pollution monitoring, and smart decision-making**.
